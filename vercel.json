@@ -1,0 +1,13 @@
+{
+  "outputDirectory": "public",
+  "rewrites": [
+    {
+      "source": "/api/kv/:path*",
+      "destination": "/api/kv?path=:path*"
+    },
+    {
+      "source": "/hamardanim",
+      "destination": "/hamardanim.html"
+    }
+  ]
+}

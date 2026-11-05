@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>מבצע בננה</title>
+<meta name="description" content="משימה סודית כל יום ומתרגם רגשות דרמטי. החברים מנחשים, מי שעובד על כולם מנצח.">
+<meta property="og:title" content="מבצע בננה 🍌">
+<meta property="og:description" content="משימה סודית כל יום ומתרגם רגשות דרמטי. בואו לשחק!">
+<meta name="theme-color" content="#ffd52e">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍌</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Karantina:wght@400;700&family=Rubik:wght@400;500;700;900&display=swap">
+<style>
+/* Layout: one-column phone app, tabloid "top secret" sticker look, fixed bottom tab bar. Single deliberate yellow/ink theme. */
+:root{
+  --ink:#16121f; --ink2:#2a2338; --banana:#ffd52e; --paper:#fff8dc; --hot:#ff3d6e; --mint:#2fd6a3; --muted:#6d6480;
+  --display:"Karantina","Rubik",system-ui,sans-serif;
+  --body:"Rubik",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+html,body{background:var(--banana);color:var(--ink);margin:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+*{-webkit-tap-highlight-color:transparent}
+.linkbtn{background:none;border:0;padding:0;color:var(--muted);font-size:14px;text-decoration:underline;cursor:pointer}
+.qr{width:220px;max-width:100%;margin:0 auto;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:6px;aspect-ratio:1;box-sizing:border-box;display:grid;place-items:center;text-align:center}
+.qr svg{width:100%;height:100%;display:block}
+a.btn{display:inline-block}
+body{font-family:var(--body);font-size:16px;line-height:1.5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 96px}
+#app{max-width:520px;margin:0 auto;direction:rtl}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.95;margin:0;text-wrap:balance}
+h1{font-size:64px;letter-spacing:.5px}
+h2{font-size:42px}
+h3{font-size:28px}
+p{margin:0}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.btn{border:3px solid var(--ink);background:var(--ink);color:var(--banana);border-radius:14px;padding:12px 18px;font-weight:700;font-size:17px;box-shadow:4px 4px 0 var(--hot);transition:transform .1s, box-shadow .1s}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--hot)}
+.btn.alt{background:var(--paper);color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.btn.hot{background:var(--hot);color:#fff;border-color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.stack{display:flex;flex-direction:column;gap:14px}
+.card{background:var(--paper);border:3px solid var(--ink);border-radius:18px;padding:16px;box-shadow:6px 6px 0 var(--ink);min-width:0}
+.field{width:100%;box-sizing:border-box;border:3px solid var(--ink);border-radius:12px;padding:12px;background:#fff;font-size:17px}
+textarea.field{min-height:90px;resize:vertical}
+.label{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+.muted{color:var(--muted);font-size:14px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:99px;border:2px solid var(--ink);background:var(--banana)}
+.tag.hot{background:var(--hot);color:#fff}
+.tag.mint{background:var(--mint)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--banana);padding-block:12px 10px;border-bottom:3px solid var(--ink);margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--banana)}
+.brand{font-family:var(--display);font-size:38px;font-weight:700;line-height:1;white-space:nowrap}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:2px solid var(--ink);border-radius:99px;padding:4px 10px;font-weight:700;font-size:14px;background:var(--paper);font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip.fire{background:var(--hot);color:#fff}
+nav.tabs{position:fixed;inset:auto 0 0 0;background:var(--ink);display:flex;justify-content:center;padding:8px max(8px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));z-index:6;direction:rtl}
+nav.tabs .inner{display:flex;gap:4px;max-width:520px;width:100%}
+nav.tabs button{flex:1;background:none;border:0;color:#cfc6e0;font-weight:700;font-size:13px;padding:8px 2px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.tabs button .ic{font-size:20px;line-height:1}
+nav.tabs button[aria-selected="true"]{background:var(--banana);color:var(--ink)}
+.dot{position:relative}
+.dot::after{content:"";position:absolute;top:4px;left:calc(50% - 16px);width:9px;height:9px;border-radius:50%;background:var(--hot)}
+/* secret envelope */
+.secret{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);border-radius:18px;border:3px solid var(--ink);padding:22px 18px;min-height:150px;box-shadow:6px 6px 0 var(--hot)}
+.secret .stamp{position:absolute;top:14px;left:-6px;transform:rotate(-12deg);font-family:var(--display);font-size:30px;color:var(--hot);border:3px solid var(--hot);padding:0 10px;border-radius:6px;opacity:.9}
+.secret .mtext{font-size:22px;font-weight:700;line-height:1.35;margin-top:10px}
+.secret .blur{filter:blur(9px);user-select:none}
+.styles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.style{border:3px solid var(--ink);background:#fff;border-radius:12px;padding:10px;text-align:start;font-weight:700;font-size:15px}
+.style small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.style[aria-pressed="true"]{background:var(--ink);color:var(--banana)}
+.style[aria-pressed="true"] small{color:#cfc6e0}
+.style .daily{float:left;font-size:11px;background:var(--hot);color:#fff;border-radius:99px;padding:1px 7px}
+.dramatic{font-size:20px;line-height:1.45;font-weight:500;white-space:pre-wrap}
+.opts{display:grid;gap:8px}
+.opt{border:3px solid var(--ink);background:#fff;border-radius:12px;padding:10px 12px;text-align:start;font-size:15px;font-weight:500}
+.opt.right{background:var(--mint)}
+.opt.wrong{background:var(--hot);color:#fff}
+.opt.mine{outline:3px dashed var(--ink);outline-offset:2px}
+.post-media{width:100%;max-height:380px;object-fit:cover;border-radius:12px;border:3px solid var(--ink);display:block;background:#000}
+.verdict{background:var(--banana);border:2px dashed var(--ink);border-radius:12px;padding:10px;font-size:14px}
+.board{display:flex;flex-direction:column;gap:8px}
+.brow{display:grid;grid-template-columns:36px 1fr auto auto;gap:10px;align-items:center;background:var(--paper);border:3px solid var(--ink);border-radius:14px;padding:10px 12px;font-variant-numeric:tabular-nums}
+.brow.me{background:var(--ink);color:var(--banana)}
+.brow .rank{font-family:var(--display);font-size:30px;line-height:1}
+.brow .name{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stickers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sticker{aspect-ratio:1;max-width:100%;border:3px solid var(--ink);border-radius:18px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6px;gap:2px}
+.sticker .em{font-size:38px;line-height:1}
+.sticker b{font-size:13px}
+.sticker small{font-size:11px;color:var(--muted);line-height:1.2}
+.sticker.locked{background:var(--paper);opacity:.55}
+.sticker.locked .em{filter:grayscale(1) blur(1px)}
+.sticker.new{animation:pop .6s ease}
+@keyframes pop{0%{transform:scale(.6) rotate(-8deg)}70%{transform:scale(1.1) rotate(3deg)}100%{transform:none}}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--banana);padding:10px 16px;border-radius:12px;font-weight:700;z-index:20;max-width:90vw;text-align:center;direction:rtl}
+.hero{padding-block:28px 10px}
+.hero h1{font-size:84px}
+.hero .sub{font-size:18px;font-weight:500;max-width:30ch;margin-top:8px}
+.codebox{font-family:var(--display);font-size:46px;letter-spacing:6px;direction:ltr;text-align:center;background:#fff;border:3px dashed var(--ink);border-radius:14px;padding:4px}
+.spinner{display:inline-block;width:16px;height:16px;border:3px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px}
+@keyframes spin{to{transform:rotate(1turn)}}
+.prog{height:8px;background:#fff;border:2px solid var(--ink);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--hot)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.navlink{flex:1;color:#cfc6e0;font-weight:700;font-size:13px;padding:8px 2px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none}
+.navlink .ic{font-size:20px;line-height:1}
+a.mardanim{text-decoration:none;color:var(--paper);background:var(--ink);box-shadow:6px 6px 0 var(--hot)}
+a.mardanim .label{color:var(--banana)}
+a.mardanim h3{color:var(--banana)}
+</style>
+</head>
+<body>
+<div id="app">
+  <section class="hero stack">
+    <h1>מבצע בננה</h1>
+    <p class="sub">טוען את המטה הסודי…</p>
+  </section>
+</div>
+<nav class="tabs" id="tabs" hidden><div class="inner" role="tablist"></div></nav>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const h=(tag,attrs={},...kids)=>{const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(v==null||v===false)continue;if(k==='class')e.className=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else if(k==='text')e.textContent=v;else e.setAttribute(k,v===true?'':v)}for(const k of kids.flat()){if(k==null||k===false)continue;e.append(k.nodeType?k:document.createTextNode(String(k)))}return e};
+const toast=(m)=>{document.querySelectorAll('.toast').forEach(t=>t.remove());const t=h('div',{class:'toast',text:m});document.body.append(t);setTimeout(()=>t.remove(),3000)};
+const ls={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const rnd=n=>{const a=new Uint8Array(n);crypto.getRandomValues(a);return [...a].map(x=>'abcdefghijklmnopqrstuvwxyz0123456789'[x%36]).join('')};
+const MOCK=new URLSearchParams(location.search).has('mock');
+
+const STYLES=[
+  {id:'shakespeare',name:'שייקספיר',d:'דרמה מלכותית עתיקה'},
+  {id:'news',name:'מבזק חדשות',d:'כתבת דחופה מהשטח'},
+  {id:'savta',name:'סבתא מרוקאית',d:'חום, דאגה ואוכל'},
+  {id:'robot',name:'רובוט',d:'מערכת. מזהה. רגש.'},
+  {id:'sport',name:'שדר כדורגל',d:'גוווול של מילים'},
+  {id:'anime',name:'גיבור אנימה',d:'כוח הידידות!!!'},
+  {id:'nature',name:'סרט טבע',d:'הקריין השקט מהסוואנה'},
+  {id:'villain',name:'נבל קולנועי',d:'צחוק מרושע ותוכנית'}
+];
+const styleName=id=>(STYLES.find(s=>s.id===id)||{}).name||'';
+const STICKERS=[
+  {em:'🍌',n:'טירון',d:'הצטרפות לקבוצה',ok:s=>true},
+  {em:'🕵️',n:'סוכן שטח',d:'משימה ראשונה',ok:s=>s.missions>=1},
+  {em:'🎭',n:'שחקן דרמה',d:'תרגום ראשון',ok:s=>s.translations>=1},
+  {em:'🎯',n:'צלף',d:'5 ניחושים נכונים',ok:s=>s.correct>=5,p:s=>s.correct/5},
+  {em:'🔥',n:'בוער',d:'רצף 3 ימים',ok:s=>s.best>=3,p:s=>s.best/3},
+  {em:'🃏',n:'ג׳וקר',d:'עבדת על 5 חברים',ok:s=>s.fooled>=5,p:s=>s.fooled/5},
+  {em:'📼',n:'במאי',d:'הוכחה בסרטון',ok:s=>s.videos>=1},
+  {em:'💯',n:'מאיון',d:'100 נקודות',ok:s=>s.score>=100,p:s=>s.score/100},
+  {em:'🌋',n:'הר געש',d:'רצף 7 ימים',ok:s=>s.best>=7,p:s=>s.best/7},
+  {em:'🦹',n:'מוח פלילי',d:'עבדת על 20 חברים',ok:s=>s.fooled>=20,p:s=>s.fooled/20},
+  {em:'👑',n:'מלך הבננות',d:'מקום 1 בקבוצה',ok:s=>s.rank===1&&s.score>0},
+  {em:'🚀',n:'אגדה',d:'500 נקודות',ok:s=>s.score>=500,p:s=>s.score/500}
+];
+
+/* identity: random id + secret kept on this phone, no login */
+let ident=ls.get('ident');
+if(!ident||!ident.uid){ident={uid:rnd(20),secret:rnd(32)};ls.set('ident',ident)}
+let prefs=Object.assign({nick:'',groups:[],current:null},ls.get('prefs')||{});
+const savePrefs=()=>ls.set('prefs',prefs);
+
+async function api(action,body={}){
+  const r=await fetch('/api/'+action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...ident,...body})});
+  let j={};try{j=await r.json()}catch(e){}
+  if(!r.ok)throw new Error(j.error||'משהו השתבש. בדקו את החיבור ונסו שוב.');
+  return j;
+}
+
+let G=null,S=null,tab='mission',pollT=null,mission=undefined,missionBusy=false;
+let tr={style:null,text:'',out:null,busy:false};
+
+/* ---------- onboarding ---------- */
+function renderOnboard(){
+  $('#tabs').hidden=true;stopPoll();
+  const roomFromLink=(new URLSearchParams(location.search).get('room')||'').toUpperCase().replace(/[^A-Z]/g,'').slice(0,5);
+  const nick=h('input',{class:'field',id:'nick',maxlength:'18',placeholder:'למשל: הסוכן נועה',autocomplete:'nickname'});nick.value=prefs.nick||'';
+  const gname=h('input',{class:'field',id:'gname',maxlength:'24',placeholder:'למשל: ח׳3 המטורפים'});
+  const code=h('input',{class:'field',id:'jcode',maxlength:'5',placeholder:'ABCDE',autocapitalize:'characters',style:'direction:ltr;text-align:center;letter-spacing:6px;text-transform:uppercase;font-size:22px'});code.value=roomFromLink;
+  const err=h('p',{class:'muted',role:'alert'});
+  const needNick=()=>{const n=nick.value.trim();if(!n){err.textContent='קודם תבחרו שם סוכן.';nick.focus();return null}prefs.nick=n;savePrefs();return n};
+  const go=async(btn,payload)=>{if(!needNick())return;btn.disabled=true;err.textContent='';try{const g=await api('join',{nick:prefs.nick,...payload});enter(g)}catch(x){err.textContent=x.message;btn.disabled=false}};
+  const joinCard=h('div',{class:'card stack'},h('h3',{},roomFromLink?'הוזמנתם לקבוצה!':'הצטרפות עם קוד חדר'),h('label',{class:'label',for:'jcode'},'קוד חדר'),code,
+    h('button',{class:'btn hot',onclick:e=>{const c=code.value.trim().toUpperCase();if(!/^[A-Z]{5}$/.test(c)){err.textContent='קוד חדר הוא 5 אותיות באנגלית.';return}go(e.currentTarget,{code:c})}},'הצטרפות'));
+  const createCard=h('div',{class:'card stack'},h('h3',{},'פתיחת קבוצה חדשה'),h('label',{class:'label',for:'gname'},'שם הקבוצה'),gname,h('button',{class:'btn',onclick:e=>go(e.currentTarget,{name:gname.value.trim()})},'פתיחת קבוצה'));
+  const list=prefs.groups.length?h('div',{class:'card stack'},h('span',{class:'label'},'הקבוצות שלך'),...prefs.groups.map(g=>h('button',{class:'btn alt',onclick:e=>go(e.currentTarget,{code:g.code})},`${g.name} · ${g.code}`))):null;
+  app.replaceChildren(h('section',{class:'hero stack'},
+    h('h1',{},'מבצע בננה'),
+    h('p',{class:'sub'},'כל יום: משימה סודית ומשונה, ותרגום דרמטי של מה שרצית להגיד. החברים מנחשים. מי שעובד על כולם מנצח.'),
+    h('div',{class:'card stack'},h('label',{class:'label',for:'nick'},'שם הסוכן שלך'),nick,h('p',{class:'muted'},'בלי הרשמה ובלי סיסמה. ההתקדמות נשמרת בטלפון הזה.')),
+    roomFromLink?[joinCard,list,createCard]:[list,createCard,joinCard],
+    h('a',{href:'/hamardanim',class:'card stack mardanim'},h('span',{class:'label'},'עוד באתר · בלי קבוצה'),h('h3',{},'🔥 המרדנים'),h('p',{},'בית ספר לקטילות, דו-קרב אונליין, בדיחות, קסמים, סטודיו AI, רַץ השמיים, המלון הרדוף ועוד.')),
+    err
+  ));
+}
+function enter(g){
+  G={code:g.code,name:g.name};
+  prefs.groups=[G,...prefs.groups.filter(x=>x.code!==G.code)].slice(0,8);prefs.current=G.code;savePrefs();
+  try{history.replaceState(null,'',location.pathname+(MOCK?'?mock':''))}catch(e){}
+  mission=undefined;S=null;tab='mission';
+  $('#tabs').hidden=false;render();refresh();startPoll();
+}
+function leave(){G=null;S=null;prefs.current=null;savePrefs();renderOnboard()}
+
+/* ---------- polling ---------- */
+async function refresh(){
+  if(!G)return;
+  try{S=await api('state',{code:G.code});if(!S.postedMissionToday){}render()}
+  catch(e){if(/להצטרף|קוד/.test(e.message)){toast(e.message);leave()}}
+}
+function startPoll(){stopPoll();pollT=setInterval(()=>{if(document.visibilityState==='visible')refresh()},6000)}
+function stopPoll(){if(pollT)clearInterval(pollT);pollT=null}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&G)refresh()});
+
+/* ---------- shell ---------- */
+const TABS=[['mission','🕵️','משימה'],['translate','🎭','מתרגם'],['feed','👀','לנחש'],['board','🏆','דירוג'],['stickers','🍌','אוסף']];
+const meStats=()=>(S&&S.ranking.find(r=>r.me))||{score:0,missions:0,translations:0,correct:0,fooled:0,videos:0,streak:0,best:0,rank:0};
+function render(){
+  if(!G)return;
+  const me=meStats();
+  const unguessed=S?S.posts.filter(p=>!p.mine&&p.myPick==null).length:0;
+  $('#tabs .inner').replaceChildren(...TABS.map(([id,ic,l])=>h('button',{role:'tab','aria-selected':String(tab===id),class:id==='feed'&&unguessed?'dot':null,onclick:()=>{tab=id;render();window.scrollTo(0,0)}},h('span',{class:'ic'},ic),l)),h('a',{href:'/hamardanim',class:'navlink'},h('span',{class:'ic'},'🔥'),'המרדנים'));
+  const head=h('header',{class:'top'},
+    h('div',{},h('div',{class:'brand'},'מבצע בננה'),h('button',{class:'linkbtn',onclick:leave},`${G.name} · ${G.code} · החלפה`)),
+    h('div',{class:'chips'},h('button',{class:'chip',onclick:()=>{tab='board';render()},title:'הזמנת חברים'},'➕ הזמנה'),h('span',{class:'chip fire',title:'רצף ימים'},`🔥 ${me.streak}`),h('span',{class:'chip',title:'נקודות'},`${me.score} נק׳`))
+  );
+  // keep inputs alive while typing on the translate tab
+  const keep=app.querySelector('[data-keep]');
+  if(keep&&keep.dataset.keep===tab&&!keep._dirty){app.firstChild.replaceWith(head);return}
+  const view=({mission:viewMission,translate:viewTranslate,feed:viewFeed,board:viewBoard,stickers:viewStickers})[tab]();
+  app.replaceChildren(head,view);
+}
+const rerender=()=>{const k=app.querySelector('[data-keep]');if(k)k._dirty=true;render()};
+
+/* ---------- mission ---------- */
+function viewMission(){
+  const wrap=h('section',{class:'stack','data-keep':'mission'});
+  wrap.append(h('div',{class:'stack'},h('span',{class:'label'},'אתגר יומי · '+new Date().toLocaleDateString('he-IL',{weekday:'long',day:'numeric',month:'long'})),h('h2',{},'המשימה הסודית שלך')));
+  const box=h('div',{class:'secret'},h('span',{class:'stamp'},'סודי ביותר'));
+  wrap.append(box);
+  if(mission===undefined){
+    box.append(h('p',{class:'mtext'},h('span',{class:'spinner'}),' פותח את המעטפה…'));
+    if(!missionBusy){missionBusy=true;api('mission',{code:G.code}).then(r=>{mission=r.mission}).catch(()=>{mission=null}).finally(()=>{missionBusy=false;rerender()})}
+    return wrap;
+  }
+  if(!mission){
+    box.append(h('p',{class:'mtext blur','aria-hidden':'true'},'תגיד בננה שלוש פעמים בלי שאף אחד ישים לב שזה בכוונה'));
+    wrap.append(h('button',{class:'btn hot',disabled:missionBusy,onclick:async()=>{missionBusy=true;rerender();try{mission=(await api('mission',{code:G.code,create:true})).mission}catch(e){toast(e.message)}missionBusy=false;rerender()}},missionBusy?'מגריל משימה…':'פתח את המשימה של היום'));
+    wrap.append(h('p',{class:'muted'},'בצעו אותה, צלמו הוכחה, והחברים ינסו לנחש מה הייתה המשימה. כל חבר שלא מנחש = 5 נקודות לכם.'));
+    return wrap;
+  }
+  box.append(h('p',{class:'mtext',text:mission}));
+  if(S&&S.postedMissionToday){
+    wrap.append(h('div',{class:'card stack'},h('h3',{},'המשימה בוצעה ✔'),h('p',{},'ההוכחה שלך בפיד. תחזרו מחר למשימה חדשה ולשמור על הרצף.'),h('button',{class:'btn alt',onclick:()=>{tab='feed';render()}},'לראות מי ניחש')));
+    return wrap;
+  }
+  wrap.append(proofForm());
+  return wrap;
+}
+
+async function makeFrame(file){
+  const draw=(src,w,hh)=>{const sc=Math.min(1,1024/Math.max(w,hh));const c=document.createElement('canvas');c.width=Math.round(w*sc);c.height=Math.round(hh*sc);c.getContext('2d').drawImage(src,0,0,c.width,c.height);return c.toDataURL('image/jpeg',0.8).split(',')[1]};
+  const url=URL.createObjectURL(file);
+  try{
+    if(file.type.startsWith('video')){
+      const v=document.createElement('video');v.muted=true;v.playsInline=true;v.preload='auto';v.src=url;
+      await new Promise((ok,no)=>{v.onloadedmetadata=ok;v.onerror=no;setTimeout(no,15000)});
+      v.currentTime=Math.min(1,(v.duration||2)/2);
+      await new Promise((ok,no)=>{v.onseeked=ok;setTimeout(ok,4000)});
+      return draw(v,v.videoWidth,v.videoHeight);
+    }
+    const img=new Image();img.src=url;await img.decode();
+    return draw(img,img.naturalWidth,img.naturalHeight);
+  }finally{URL.revokeObjectURL(url)}
+}
+let blobLib=null;
+async function uploadFile(file){
+  if(MOCK)return 'mock://'+file.name;
+  if(!blobLib)blobLib=await import('https://cdn.jsdelivr.net/npm/@vercel/blob@2.8.2/client/+esm');
+  const ext=(file.name.split('.').pop()||'bin').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5)||'bin';
+  const r=await blobLib.upload(`proofs/${ident.uid}/proof.${ext}`,file,{access:'public',handleUploadUrl:'/api/upload',clientPayload:JSON.stringify(ident),contentType:file.type});
+  return r.url;
+}
+function proofForm(){
+  const f=h('div',{class:'card stack'});
+  const file=h('input',{type:'file',id:'proof',accept:'image/*,video/*',class:'field'});
+  const cap=h('input',{class:'field',id:'pcap',maxlength:'80',placeholder:'כיתוב להוכחה (בלי לגלות את המשימה!)'});
+  const prev=h('div');
+  file.addEventListener('change',()=>{prev.replaceChildren();const fl=file.files[0];if(!fl)return;const u=URL.createObjectURL(fl);prev.append(fl.type.startsWith('video')?h('video',{class:'post-media',src:u,controls:true,playsinline:true}):h('img',{class:'post-media',src:u,alt:'תצוגה מקדימה'}))});
+  const go=h('button',{class:'btn',onclick:async()=>{
+    const fl=file.files[0];if(!fl){toast('צריך תמונה או סרטון קצר כהוכחה.');return}
+    if(fl.size>25*1024*1024){toast('הקובץ גדול מ-25MB. צלמו סרטון קצר יותר.');return}
+    go.disabled=true;
+    try{
+      go.textContent='מכין…';const frame=await makeFrame(fl);
+      go.textContent='מעלה הוכחה…';const mediaUrl=await uploadFile(fl);
+      go.textContent='השופט בודק…';
+      await api('post',{code:G.code,type:'mission',mediaUrl,mediaType:fl.type.startsWith('video')?'video':'image',caption:cap.value.trim(),frame:{type:'image/jpeg',data:frame}});
+      toast('ההוכחה פורסמה! +5 נק׳');tab='feed';await refresh();
+    }catch(e){toast(e.message||'הפרסום נכשל.');go.disabled=false;go.textContent='פרסום לקבוצה'}
+  }},'פרסום לקבוצה');
+  f.append(h('h3',{},'שלב 2: הוכחה'),h('label',{class:'label',for:'proof'},'תמונה או סרטון קצר'),file,prev,cap,go,h('p',{class:'muted'},'שופט AI בודק כל הוכחה לפני שהיא מתפרסמת. רק חברי הקבוצה רואים אותה.'));
+  return f;
+}
+
+/* ---------- translate ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function viewTranslate(){
+  const day=S?S.dailyStyle:null;if(!tr.style)tr.style=day||'shakespeare';
+  const wrap=h('section',{class:'stack','data-keep':'translate'});
+  wrap.append(h('div',{class:'stack'},h('span',{class:'label'},'מתרגם רגשות'),h('h2',{},'תגידו משהו רגיל. נהפוך אותו לדרמה.')));
+  const ta=h('textarea',{class:'field',id:'orig',maxlength:'200',placeholder:'למשל: אני רעב ואין לי כוח למבחן מחר'});ta.value=tr.text;ta.addEventListener('input',()=>tr.text=ta.value);
+  let mic=null;
+  if(SR){mic=h('button',{class:'btn alt',type:'button',onclick:()=>{
+    try{const r=new SR();r.lang='he-IL';r.interimResults=false;mic.textContent='🎙️ מקשיב…';mic.disabled=true;
+      r.onresult=e=>{const t=e.results[0][0].transcript;tr.text=(tr.text?tr.text+' ':'')+t;ta.value=tr.text};
+      r.onend=()=>{mic.textContent='🎤 הקלטה';mic.disabled=false};r.onerror=()=>toast('לא הצלחנו לשמוע. אשרו גישה למיקרופון ונסו שוב.');r.start()}catch(e){toast('ההקלטה לא נתמכת בדפדפן הזה.')}
+  }},'🎤 הקלטה')}
+  wrap.append(h('div',{class:'card stack'},h('label',{class:'label',for:'orig'},'מה רציתם להגיד?'),ta,mic||h('p',{class:'muted'},'אפשר גם להקליט דרך המיקרופון במקלדת.')));
+  wrap.append(h('span',{class:'label'},'סגנון'),h('div',{class:'styles'},...STYLES.map(s=>h('button',{class:'style','aria-pressed':String(tr.style===s.id),onclick:()=>{tr.style=s.id;rerender()}},s.id===day?h('span',{class:'daily'},'אתגר היום +5'):null,s.name,h('small',{},s.d)))));
+  wrap.append(h('button',{class:'btn hot',disabled:tr.busy,onclick:translate},tr.busy?'מתרגם…':'תרגם לדרמה'));
+  if(tr.out){
+    wrap.append(h('div',{class:'card stack'},h('span',{class:'tag hot'},styleName(tr.out.style)),h('p',{class:'dramatic',text:tr.out.dramatic}),
+      h('div',{class:'row'},h('button',{class:'btn alt',onclick:()=>speak(tr.out.dramatic)},'🔊 השמעה'),h('button',{class:'btn alt',onclick:()=>makeMeme(tr.out.dramatic,styleName(tr.out.style))},'🖼️ ממים'),
+        h('button',{class:'btn',disabled:tr.out.posted,onclick:postTranslation},tr.out.posted?'נשלח ✔':'שליחה לחברים לנחש'))));
+  }
+  wrap.append(h('div',{id:'memeOut'}));
+  return wrap;
+}
+async function translate(){
+  if(!tr.text.trim()){toast('כתבו קודם משהו.');return}
+  tr.busy=true;rerender();
+  try{const r=await api('translate',{text:tr.text.trim(),style:tr.style});tr.out={id:r.id,dramatic:r.dramatic,style:r.style,posted:false}}
+  catch(e){toast(e.message)}
+  tr.busy=false;rerender();
+}
+async function postTranslation(){
+  try{const r=await api('post',{code:G.code,type:'translate',pendingId:tr.out.id});tr.out.posted=true;toast(r.bonus?'נשלח! +10 נק׳ (כולל בונוס אתגר)':'נשלח! +5 נק׳');refresh()}
+  catch(e){toast(e.message)}
+  rerender();
+}
+function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='he-IL';u.rate=1.05;speechSynthesis.speak(u)}catch(e){toast('הדפדפן לא תומך בהקראה.')}}
+
+/* ---------- meme image ---------- */
+async function makeMeme(text,sName){
+  try{await document.fonts.ready}catch(e){}
+  const c=document.createElement('canvas');c.width=1080;c.height=1080;const x=c.getContext('2d');
+  x.fillStyle='#ffd52e';x.fillRect(0,0,1080,1080);x.fillStyle='#16121f';x.fillRect(40,40,1000,1000);x.fillStyle='#fff8dc';x.fillRect(60,60,960,960);
+  x.direction='rtl';x.textAlign='right';x.fillStyle='#ff3d6e';x.font='700 96px Karantina, Rubik, sans-serif';x.fillText(sName,990,170);
+  x.fillStyle='#16121f';let size=58;const words=text.split(/\s+/);let lines;
+  const wrapT=()=>{x.font=`700 ${size}px Rubik, sans-serif`;lines=[];let cur='';for(const w of words){const t=cur?cur+' '+w:w;if(x.measureText(t).width>900&&cur){lines.push(cur);cur=w}else cur=t}if(cur)lines.push(cur)};
+  wrapT();while(lines.length*size*1.3>660&&size>30){size-=4;wrapT()}
+  lines.forEach((l,i)=>x.fillText(l,990,260+i*size*1.3));
+  x.fillStyle='#16121f';x.fillRect(60,940,960,80);x.fillStyle='#ffd52e';x.font='700 54px Karantina, Rubik, sans-serif';x.textAlign='center';x.fillText('מבצע בננה · קוד חדר '+G.code,540,996);
+  const blob=await new Promise(r=>c.toBlob(r,'image/png'));
+  const url=URL.createObjectURL(blob);const out=$('#memeOut');if(!out)return;
+  const fileObj=new File([blob],'mivtza-banana.png',{type:'image/png'});
+  const canShare=navigator.canShare&&navigator.canShare({files:[fileObj]});
+  out.replaceChildren(h('div',{class:'card stack'},h('img',{src:url,alt:'תמונת ממים של התרגום',class:'post-media',style:'object-fit:contain;background:var(--banana)'}),
+    h('div',{class:'row'},canShare?h('button',{class:'btn hot',onclick:()=>navigator.share({files:[fileObj],text:'מבצע בננה 🍌 '+inviteUrl()}).catch(()=>{})},'📤 שיתוף'):null,
+      h('a',{class:'btn alt',href:url,download:'mivtza-banana.png',style:'text-decoration:none'},'⬇️ שמירה'))));
+  out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ---------- feed ---------- */
+function viewFeed(){
+  const wrap=h('section',{class:'stack'});
+  wrap.append(h('div',{class:'stack'},h('span',{class:'label'},'הפיד של '+G.name),h('h2',{},'מה הייתה המשימה? מה הוא באמת אמר?')));
+  if(!S){wrap.append(h('p',{class:'muted'},h('span',{class:'spinner'}),' טוען…'));return wrap}
+  if(!S.posts.length){wrap.append(h('div',{class:'card stack'},h('h3',{},'עדיין שקט פה'),h('p',{},'הזמינו חברים, ותהיו הראשונים לפרסם משימה או תרגום.')),inviteCard());return wrap}
+  S.posts.forEach(p=>wrap.append(postCard(p)));
+  return wrap;
+}
+function postCard(p){
+  const reveal=p.answer!=null;
+  const c=h('article',{class:'card stack'});
+  c.append(h('div',{class:'row',style:'justify-content:space-between'},h('div',{class:'row'},h('span',{class:'tag '+(p.type==='mission'?'':'hot')},p.type==='mission'?'משימה סודית':'מתרגם · '+styleName(p.style)),p.bonus?h('span',{class:'tag mint'},'אתגר היום'):null),h('span',{class:'muted',text:(p.nick||'סוכן')+(p.mine?' (את/ה)':'')})));
+  if(p.type==='mission'){
+    const src=p.mediaUrl&&!p.mediaUrl.startsWith('mock')?p.mediaUrl:null;
+    if(src)c.append(p.mediaType==='video'?h('video',{class:'post-media',src,controls:true,playsinline:true,preload:'metadata'}):h('img',{class:'post-media',src,alt:'הוכחה',loading:'lazy'}));
+    else c.append(h('div',{class:'post-media',style:'height:160px;display:grid;place-items:center;color:#fff'},'📷 הוכחה'));
+    if(p.caption)c.append(h('p',{text:p.caption,style:'font-weight:700'}));
+    if(p.verdict)c.append(h('p',{class:'verdict',text:'⚖️ השופט: '+p.verdict}));
+    c.append(h('span',{class:'label'},'איזו משימה זאת הייתה?'));
+  }else{
+    c.append(h('p',{class:'dramatic',text:p.dramatic}),h('div',{class:'row'},h('button',{class:'btn alt',onclick:()=>speak(p.dramatic)},'🔊 השמעה'),h('button',{class:'btn alt',onclick:()=>{tab='translate';render();setTimeout(()=>makeMeme(p.dramatic,styleName(p.style)),50)}},'🖼️ ממים')));
+    c.append(h('span',{class:'label'},'מה נאמר במקור?'));
+  }
+  const opts=h('div',{class:'opts'});
+  (p.options||[]).forEach((o,i)=>{
+    let cls='opt';if(reveal){if(i===p.answer)cls+=' right';else if(p.myPick===i)cls+=' wrong'}if(p.myPick===i)cls+=' mine';
+    opts.append(h('button',{class:cls,text:o,disabled:(reveal||p.mine)?true:null,onclick:async()=>{
+      opts.querySelectorAll('button').forEach(x=>x.disabled=true);
+      try{const r=await api('guess',{code:G.code,postId:p.id,pick:i});toast(r.correct?'בול! +10 נק׳':`נפלת בפח 😅 ${r.author} קיבל/ה 5`);await refresh()}
+      catch(e){toast(e.message);opts.querySelectorAll('button').forEach(x=>x.disabled=false)}
+    }}));
+  });
+  c.append(opts);
+  const foot=h('div',{class:'row',style:'justify-content:space-between'},
+    h('p',{class:'muted'},p.mine?`${p.guessCount} ניחשו · עבדת על ${p.fooled}`:reveal?`${p.guessCount} ניחשו · ${p.fooled} נפלו בפח`:'בחרו תשובה אחת. אין תיקונים!'));
+  const rep=h('button',{class:'linkbtn',onclick:async()=>{
+    if(!rep.dataset.sure){rep.dataset.sure='1';rep.textContent=p.mine?'בטוח למחוק?':'בטוח? הפוסט יוסתר לכולם';return}
+    try{await api('report',{code:G.code,postId:p.id});toast(p.mine?'נמחק.':'תודה. הפוסט הוסתר.');refresh()}catch(e){toast(e.message)}
+  }},p.mine?'מחיקה':'דיווח');
+  foot.append(rep);c.append(foot);
+  return c;
+}
+
+/* ---------- invite ---------- */
+const inviteUrl=()=>`${location.origin}/?room=${G.code}`;
+let qrLib=null;
+function inviteCard(){
+  const box=h('div',{class:'qr','aria-label':'ברקוד הזמנה'});
+  const card=h('div',{class:'card stack'},h('h3',{},'הזמנת חברים'),h('p',{},'סורקים את הברקוד או לוחצים על הקישור, ונכנסים ישר לקבוצה. בלי הרשמה.'),box,
+    h('div',{class:'codebox',text:G.code}),
+    h('div',{class:'row'},navigator.share?h('button',{class:'btn hot',onclick:()=>navigator.share({title:'מבצע בננה',text:`בואו לשחק איתי במבצע בננה 🍌 קוד חדר: ${G.code}`,url:inviteUrl()}).catch(()=>{})},'📤 שליחה'):null,
+      h('button',{class:'btn alt',onclick:async()=>{const t=`בואו לשחק איתי במבצע בננה 🍌 ${inviteUrl()}`;try{await navigator.clipboard.writeText(t);toast('הקישור הועתק! הדביקו בוואטסאפ')}catch(e){toast(inviteUrl())}}},'🔗 העתקת קישור')),
+    h('p',{class:'muted',style:'direction:ltr;text-align:right;word-break:break-all',text:inviteUrl()}));
+  (async()=>{try{
+    if(!qrLib){await new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js';s.onload=ok;s.onerror=no;document.head.append(s)});qrLib=window.qrcode}
+    const q=qrLib(0,'M');q.addData(inviteUrl());q.make();box.innerHTML=q.createSvgTag({cellSize:6,margin:2,scalable:true});
+  }catch(e){box.textContent='הברקוד לא נטען. שלחו את הקישור.'}})();
+  return card;
+}
+
+/* ---------- board ---------- */
+function viewBoard(){
+  const wrap=h('section',{class:'stack'});
+  wrap.append(h('div',{class:'stack'},h('span',{class:'label'},'דירוג הקבוצה'),h('h2',{},'מי הסוכן הכי ערמומי?')));
+  const b=h('div',{class:'board'});
+  (S?S.ranking:[]).forEach(r=>b.append(h('div',{class:'brow'+(r.me?' me':'')},h('span',{class:'rank'},r.rank===1&&r.score>0?'👑':r.rank),h('span',{class:'name',text:(r.nick||'סוכן')+(r.me?' (את/ה)':'')}),h('span',{class:'chip'+(r.streak?' fire':'')},'🔥 '+r.streak),h('b',{},r.score))));
+  if(!S)b.append(h('p',{class:'muted'},'טוען…'));
+  wrap.append(b,inviteCard());
+  wrap.append(h('div',{class:'card stack'},h('h3',{},'איך מקבלים נקודות'),
+    h('p',{},'פרסום משימה או תרגום: 5 · אתגר הסגנון של היום: עוד 5 · ניחוש נכון: 10 · כל חבר שנפל בפח שלך: 5'),
+    h('p',{class:'muted'},'רצף = ימים ברצף שבהם פרסמתם משהו. דילגתם על יום? מתחילים מאפס.')));
+  return wrap;
+}
+
+/* ---------- stickers ---------- */
+function viewStickers(){
+  const me=meStats();const got=STICKERS.filter(s=>s.ok(me)).length;
+  const prev=ls.get('stk_'+G.code)||[];const now=[];
+  const wrap=h('section',{class:'stack'});
+  wrap.append(h('div',{class:'stack'},h('span',{class:'label'},`האוסף שלך · ${got}/${STICKERS.length}`),h('h2',{},'מדבקות סוכן')));
+  const g=h('div',{class:'stickers'});
+  STICKERS.forEach((s,i)=>{const ok=s.ok(me);if(ok)now.push(i);
+    const el=h('div',{class:'sticker'+(ok?'':' locked')+(ok&&!prev.includes(i)?' new':'')},h('span',{class:'em'},s.em),h('b',{},s.n),h('small',{},s.d));
+    if(!ok&&s.p)el.append(h('div',{class:'prog',style:'width:80%'},h('i',{style:`width:${Math.min(100,Math.round(s.p(me)*100))}%`})));
+    g.append(el)});
+  if(S)ls.set('stk_'+G.code,now);
+  wrap.append(g,h('div',{class:'card stack'},h('h3',{},'הסטטיסטיקה שלך'),h('div',{class:'row'},
+    h('span',{class:'chip'},`משימות ${me.missions}`),h('span',{class:'chip'},`תרגומים ${me.translations}`),h('span',{class:'chip'},`ניחושים נכונים ${me.correct}`),h('span',{class:'chip'},`עבדת על ${me.fooled}`),h('span',{class:'chip fire'},`שיא רצף ${me.best}`))));
+  return wrap;
+}
+
+/* ---------- boot ---------- */
+if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('/sw.js').catch(()=>{})}
+const linkRoom=new URLSearchParams(location.search).get('room');
+if(prefs.nick&&prefs.current&&!linkRoom){const g=prefs.groups.find(x=>x.code===prefs.current);if(g){enter(g)}else renderOnboard()}
+else if(prefs.nick&&linkRoom&&prefs.groups.some(x=>x.code===linkRoom.toUpperCase())){enter(prefs.groups.find(x=>x.code===linkRoom.toUpperCase()))}
+else renderOnboard();
+})();
+</script>
+</body></html>

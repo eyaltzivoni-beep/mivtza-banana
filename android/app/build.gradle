@@ -1,0 +1,29 @@
+plugins {
+    id 'com.android.application'
+}
+
+// The address of your live site (from Vercel). Set it as the SITE_URL variable in GitHub.
+def siteUrl = (System.getenv('SITE_URL') ?: (project.findProperty('SITE_URL') ?: 'https://mivtza-banana.vercel.app')).toString().replaceAll('/+$', '')
+
+android {
+    namespace 'com.mivtzabanana.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.mivtzabanana.app'
+        minSdk 24
+        targetSdk 34
+        versionCode((System.getenv('GITHUB_RUN_NUMBER') ?: '1') as int)
+        versionName '1.0.' + (System.getenv('GITHUB_RUN_NUMBER') ?: '0')
+        buildConfigField 'String', 'SITE_URL', '"' + siteUrl + '/"'
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
